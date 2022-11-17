@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import Movie, { MovieType, MoviePropType } from './movie';
+import React from 'react';
+import Movie, { MovieType } from './movie';
 
 interface MovieListProp {
   movies: MovieType[];

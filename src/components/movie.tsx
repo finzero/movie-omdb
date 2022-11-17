@@ -1,5 +1,4 @@
-import React, { MouseEventHandler } from 'react';
-import PropTypes, { InferProps } from 'prop-types';
+import PropTypes from 'prop-types';
 
 export const moviePropTypes = {
   Title: PropTypes.string,

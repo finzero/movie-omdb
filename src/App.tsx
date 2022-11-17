@@ -1,11 +1,4 @@
-import React, {
-  ChangeEvent,
-  ChangeEventHandler,
-  useCallback,
-  useEffect,
-  useRef,
-  useState,
-} from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import { add } from './features/movieSlice';
 import { useDispatch } from 'react-redux';
 import { useLazySearchMovieQuery } from './services/apiSlice';
@@ -50,10 +43,7 @@ function App() {
   const [term, setTerm] = useState('');
   const [page, setPage] = useState(1);
 
-  const movieSearch = useRef<HTMLInputElement>(null);
-  const yearRef = useRef<HTMLSelectElement>(null);
-
-  const [fetchMovie, { isFetching, data: response, error }] =
+  const [fetchMovie, { isFetching, data: response }] =
     useLazySearchMovieQuery();
 
   const dispatch = useDispatch();
@@ -81,7 +71,7 @@ function App() {
     if (term) {
       fetchMovie({ s: term, p: page });
     }
-  }, [term, page]);
+  }, [fetchMovie, term, page]);
 
   const handleSearchByYear = (e: ChangeEvent<HTMLSelectElement>) => {
     const year = e.target.value;
@@ -113,6 +103,8 @@ function App() {
         {!isFetching && response && response.status === 'error' && (
           <EmptyState />
         )}
+
+        {!isFetching && !response && <EmptyState />}
       </div>
 
       <Footer />
