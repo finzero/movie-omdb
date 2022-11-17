@@ -21,7 +21,7 @@
 
 @media screen and (min-width: 1440px) {
   .movie-list-container{
-    width: calc(340px * 3);
+    width: calc(340px * 4);
   }
 }
 
