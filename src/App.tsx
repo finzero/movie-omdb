@@ -18,15 +18,16 @@ const EmptyState = () => (
       justifyContent: 'center',
       flexDirection: 'column',
       alignItems: 'center',
-      height: '80vh',
+      height: '70vh',
     }}
   >
     <img
+      width={150}
       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1vzgBGWurwN5qXFRoWi92oND80HPCMroJOt1Esvb2J5ReTRpjTKVuKzb4yUv2CkBw5G4&usqp=CAU"
       alt=""
     />
 
-    <div style={{ fontSize: '25px', marginTop: '10px' }}>
+    <div style={{ fontSize: '20px', marginTop: '10px' }}>
       No Movie, Search Your Movie Title
     </div>
   </div>
