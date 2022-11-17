@@ -1,16 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 export interface InitialState {
-  value: ICart[];
+  value: Movie[];
 }
 
-export interface ICartState {
+export interface MovieState {
   cart: {
-    value: ICart[];
+    value: Movie[];
   };
 }
 
-export interface ICart {
+export interface Movie {
   Poster: string;
   Title: string;
   Type: string;
@@ -27,10 +27,11 @@ export const cartSlice = createSlice({
   initialState,
   reducers: {
     add: (state, action) => {
-      // add to cart logic
-      if (
-        state.value.findIndex((val) => val.imdbID === action.payload.id) === -1
-      ) {
+      const movieIdx = state.value.findIndex(
+        (val) => val.imdbID === action.payload.id
+      );
+
+      if (movieIdx === -1) {
         state.value = [...state.value, action.payload];
       }
     },

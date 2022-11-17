@@ -28,22 +28,26 @@ export default function Movie({ movie, addToFav }: MoviePropType) {
   return (
     <div className="card movieContainer" key={movie.imdbID}>
       <div className="card-body">
-        <div className="movieLayout">
-          <div className="posterContainer">
-            <img src={movie.Poster} alt={movie.Title} />
+        <div className="movie-layout">
+          <div className="favorite-mark">
+            <div className="star">&#9733;</div>
           </div>
-          <div className="movieInformation">
+          <div className="poster-container">
+            {movie.Poster !== 'N/A' ? (
+              <img src={movie.Poster} alt={movie.Title} />
+            ) : (
+              <img
+                src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTjQk5myChutYz0rHuGWaDlhcGMzOCABLt_LA&usqp=CAU"
+                alt=""
+              />
+            )}
+          </div>
+          <div className="movie-information">
             {movie.Title} ({movie.Year})
           </div>
-          <div className="buttonLayout">
-            <button
-              className="btn btn-sm btn-primary"
-              onClick={() => addToFav(movie)}
-            >
-              Add To Favorite
-            </button>
-          </div>
         </div>
+        <div className="hover-layout"></div>
+        <button className="btn-hover btn btn-outline-info">View Detail</button>
       </div>
     </div>
   );
