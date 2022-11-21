@@ -15,7 +15,7 @@ export default function Header({ onSearchTitle, onSearchYear }: HeaderProps) {
   return (
     <div className="movie-searchbar">
       <div className="row w-100">
-        <div className="col-8">
+        <div className="col-7">
           <input
             className="form-control col-md-5"
             type="text"
@@ -25,7 +25,7 @@ export default function Header({ onSearchTitle, onSearchYear }: HeaderProps) {
             onChange={onSearchTitle}
           />
         </div>
-        <div className="col-4">
+        <div className="col-5">
           <select
             onChange={onSearchYear}
             name="year"

@@ -11,16 +11,7 @@ import Header from './layout/Header';
 import Footer from './layout/Footer';
 
 const EmptyState = () => (
-  <div
-    className="text-center text-info"
-    style={{
-      display: 'flex',
-      justifyContent: 'center',
-      flexDirection: 'column',
-      alignItems: 'center',
-      height: '70vh',
-    }}
-  >
+  <div className="text-center text-info empty-state">
     <img
       width={150}
       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1vzgBGWurwN5qXFRoWi92oND80HPCMroJOt1Esvb2J5ReTRpjTKVuKzb4yUv2CkBw5G4&usqp=CAU"
@@ -82,33 +73,35 @@ function App() {
   };
 
   return (
-    <div className="container-fluid">
+    <div>
       <Header
         onSearchTitle={handleSearchByTitle}
         onSearchYear={handleSearchByYear}
       />
 
-      <div className="movie-container">
-        {isFetching && <Loading />}
+      <div className="content">
+        <div className="movie-container">
+          {isFetching && <Loading />}
 
-        {!isFetching && response && response.status === 'success' && (
-          <MovieList
-            movies={response && response.data ? response.data : []}
-            total={response.totalResults}
-            addToFav={handleAddToFav}
-            changePage={setPage}
-            page={page}
-          />
-        )}
+          {!isFetching && response && response.status === 'success' && (
+            <MovieList
+              movies={response && response.data ? response.data : []}
+              total={response.totalResults}
+              addToFav={handleAddToFav}
+              changePage={setPage}
+              page={page}
+            />
+          )}
 
-        {!isFetching && response && response.status === 'error' && (
-          <EmptyState />
-        )}
+          {!isFetching && response && response.status === 'error' && (
+            <EmptyState />
+          )}
 
-        {!isFetching && !response && <EmptyState />}
+          {!isFetching && !response && <EmptyState />}
+        </div>
+
+        <Footer />
       </div>
-
-      <Footer />
     </div>
   );
 }

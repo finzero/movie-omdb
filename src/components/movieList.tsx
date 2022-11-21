@@ -17,35 +17,12 @@ interface PaginationProp {
 const Pagination = ({ page, changePage, total }: PaginationProp) => {
   const totalPage = Math.ceil(Number(total) / 10);
 
-  const pageBtnStyle = (p: number): React.CSSProperties => {
-    let style: React.CSSProperties = {
-      color: 'red',
-      height: '50px',
-      width: '50px',
-      border: '1px solid red',
-      backgroundColor: 'none',
-      cursor: 'pointer',
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      borderRadius: '5px',
-    };
-    if (p === page) {
-      style = {
-        ...style,
-        backgroundColor: 'red',
-        color: 'white',
-      };
-    }
-    return style;
-  };
-
   return (
     <div className="pagination-container">
       {[...Array(totalPage)].map((_, i) => (
         <div
           onClick={() => changePage(i + 1)}
-          style={pageBtnStyle(i + 1)}
+          className={i + 1 === page ? 'active' : ''}
           key={i}
         >
           {i + 1}

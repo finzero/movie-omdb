@@ -22,7 +22,7 @@ const initialState: InitialState = {
   value: [],
 };
 
-export const cartSlice = createSlice({
+export const movieSlice = createSlice({
   name: 'cart',
   initialState,
   reducers: {
@@ -44,6 +44,6 @@ export const cartSlice = createSlice({
   },
 });
 
-export const { add, remove } = cartSlice.actions;
+export const { add, remove } = movieSlice.actions;
 
-export default cartSlice.reducer;
+export default movieSlice.reducer;
