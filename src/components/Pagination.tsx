@@ -3,7 +3,7 @@ import classnames from 'classnames';
 import { usePagination, DOTS } from '../custom-hook/usePagination';
 import '../assets/css/pagination.css';
 
-interface Pagination {
+interface PaginationType {
   onPageChange: Function;
   totalCount: number;
   siblingCount?: number;
@@ -12,7 +12,7 @@ interface Pagination {
   className: string;
 }
 
-const Pagination = (props: Pagination) => {
+const Pagination = (props: PaginationType) => {
   const {
     onPageChange,
     totalCount,
