@@ -1,36 +1,14 @@
 import React from 'react';
 import Movie, { MovieType } from './movie';
+import Pagination from './Pagination';
 
 interface MovieListProp {
   movies: MovieType[];
   addToFav: (movie: MovieType) => void;
-  total: string | undefined;
+  total: number;
   changePage: (page: number) => void;
   page: number;
 }
-
-interface PaginationProp {
-  total: string | undefined;
-  changePage: (page: number) => void;
-  page: number;
-}
-const Pagination = ({ page, changePage, total }: PaginationProp) => {
-  const totalPage = Math.ceil(Number(total) / 10);
-
-  return (
-    <div className="pagination-container">
-      {[...Array(totalPage)].map((_, i) => (
-        <div
-          onClick={() => changePage(i + 1)}
-          className={i + 1 === page ? 'active' : ''}
-          key={i}
-        >
-          {i + 1}
-        </div>
-      ))}
-    </div>
-  );
-};
 
 const MovieList = ({
   movies,
@@ -50,7 +28,14 @@ const MovieList = ({
           <div>Movie List Empty, Search Your Movie</div>
         )}
       </div>
-      <Pagination page={page} changePage={changePage} total={total} />
+      {/* <Pagination page={page} changePage={changePage} total={total} /> */}
+      <Pagination
+        className="pagination-bar"
+        currentPage={page}
+        totalCount={total}
+        pageSize={10}
+        onPageChange={(page: number) => changePage(page)}
+      />
     </React.Fragment>
   );
 };

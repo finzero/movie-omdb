@@ -86,7 +86,7 @@ function App() {
           {!isFetching && response && response.status === 'success' && (
             <MovieList
               movies={response && response.data ? response.data : []}
-              total={response.totalResults}
+              total={Number(response.totalResults)}
               addToFav={handleAddToFav}
               changePage={setPage}
               page={page}
