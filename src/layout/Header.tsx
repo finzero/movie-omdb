@@ -1,48 +1,39 @@
-import React, { ChangeEventHandler } from 'react';
+import React from 'react';
+import styled from 'styled-components';
+import SearchInput from '../components/SearchInput';
+import YearDropdown from '../components/YearDropdown';
 
 interface HeaderProps {
-  onSearchTitle: ChangeEventHandler<HTMLInputElement>;
-  onSearchYear: ChangeEventHandler<HTMLSelectElement>;
+  onSearchTitle: React.ChangeEventHandler<HTMLInputElement>;
+  onSearchYear: React.ChangeEventHandler<HTMLSelectElement>;
 }
 
-export default function Header({ onSearchTitle, onSearchYear }: HeaderProps) {
-  const currentYear = new Date().getFullYear();
-  const yearData: number[] = [];
-  for (let c = currentYear; c >= currentYear - 50; c--) {
-    yearData.push(c);
-  }
+const MovieSearchBar = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgb(255, 255, 255);
+  width: 100%;
+  display: flex;
+  align-items: center;
+  padding: 15px;
+  box-shadow: 0 4px 4px #00000040;
+  z-index: 2;
+`;
 
+const Header = ({ onSearchTitle, onSearchYear }: HeaderProps) => {
   return (
-    <div className="movie-searchbar">
+    <MovieSearchBar>
       <div className="row w-100">
         <div className="col-7">
-          <input
-            className="form-control col-md-5"
-            type="text"
-            name="search"
-            id="search"
-            placeholder="Search Movie Title"
-            onChange={onSearchTitle}
-          />
+          <SearchInput onChange={onSearchTitle} />
         </div>
         <div className="col-5">
-          <select
-            onChange={onSearchYear}
-            name="year"
-            id="year"
-            className="col-md-2 form-control"
-          >
-            <option key={''} value={''}>
-              All Year
-            </option>
-            {yearData.map((y) => (
-              <option key={y} value={y}>
-                {y}
-              </option>
-            ))}
-          </select>
+          <YearDropdown onSearchYear={onSearchYear} />
         </div>
       </div>
-    </div>
+    </MovieSearchBar>
   );
-}
+};
+
+export default React.memo(Header);

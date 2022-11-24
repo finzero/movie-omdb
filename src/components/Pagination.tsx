@@ -2,6 +2,7 @@ import React from 'react';
 import classnames from 'classnames';
 import { usePagination, DOTS } from '../custom-hook/usePagination';
 import '../assets/css/pagination.css';
+import styled from 'styled-components';
 
 interface PaginationType {
   onPageChange: Function;
@@ -11,6 +12,34 @@ interface PaginationType {
   pageSize: number;
   className: string;
 }
+
+const PaginationContainer = styled.ul`
+  display: flex;
+  gap: 10px;
+  margin-top: 10px;
+  justify-content: center;
+  flex-wrap: wrap;
+  overflow: auto;
+  width: 100%;
+
+  & > div {
+    color: red;
+    height: 50px;
+    width: 50px;
+    border: 1px solid red;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    padding: 0 10px;
+
+    &.active {
+      background-color: red;
+      color: white;
+    }
+  }
+`;
 
 const Pagination = (props: PaginationType) => {
   const {
@@ -44,11 +73,10 @@ const Pagination = (props: PaginationType) => {
 
   let lastPage = paginationRange[paginationRange.length - 1];
   return (
-    <ul
-      className={classnames('pagination-container', { [className]: className })}
-    >
+    <PaginationContainer className={classnames({ [className]: className })}>
       {/* Left navigation arrow */}
       <li
+        key={'leftArrow'}
         className={classnames('pagination-item', {
           disabled: currentPage === 1,
         })}
@@ -59,12 +87,17 @@ const Pagination = (props: PaginationType) => {
       {paginationRange.map((pageNumber) => {
         // If the pageItem is a DOT, render the DOTS unicode character
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>;
+          return (
+            <li key={pageNumber} className="pagination-item dots">
+              &#8230;
+            </li>
+          );
         }
 
         // Render our Page Pills
         return (
           <li
+            key={pageNumber}
             className={classnames('pagination-item', {
               selected: pageNumber === currentPage,
             })}
@@ -76,6 +109,7 @@ const Pagination = (props: PaginationType) => {
       })}
       {/*  Right Navigation arrow */}
       <li
+        key={'rightArrow'}
         className={classnames('pagination-item', {
           disabled: currentPage === lastPage,
         })}
@@ -83,7 +117,7 @@ const Pagination = (props: PaginationType) => {
       >
         <div className="arrow right" />
       </li>
-    </ul>
+    </PaginationContainer>
   );
 };
 

@@ -1,5 +1,6 @@
 import React from 'react';
-import Movie, { MovieType } from './movie';
+import styled from 'styled-components';
+import Movie, { MovieType } from './Movie';
 import Pagination from './Pagination';
 
 interface MovieListProp {
@@ -10,6 +11,34 @@ interface MovieListProp {
   page: number;
 }
 
+const MovieListContainer = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: flex-start;
+  margin: auto;
+
+  @media (min-width: 375px) {
+    width: 314px;
+  }
+
+  @media (min-width: 768px) {
+    width: calc(314px * 2 + 10px);
+  }
+
+  @media (min-width: 1024px) {
+    width: calc(314px * 3 + 10px * 2);
+  }
+
+  @media (min-width: 1440px) {
+    width: calc(314px * 4 + 10px * 3);
+  }
+
+  @media (min-width: 2000px) {
+    width: calc(314px * 5 + 10px * 4);
+  }
+`;
+
 const MovieList = ({
   movies,
   addToFav,
@@ -19,7 +48,7 @@ const MovieList = ({
 }: MovieListProp) => {
   return (
     <React.Fragment>
-      <div className="movie-list-container">
+      <MovieListContainer>
         {movies.length ? (
           movies.map((movie: MovieType) => (
             <Movie key={movie.imdbID} movie={movie} addToFav={addToFav} />
@@ -27,8 +56,7 @@ const MovieList = ({
         ) : (
           <div>Movie List Empty, Search Your Movie</div>
         )}
-      </div>
-      {/* <Pagination page={page} changePage={changePage} total={total} /> */}
+      </MovieListContainer>
       <Pagination
         className="pagination-bar"
         currentPage={page}

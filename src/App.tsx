@@ -1,35 +1,24 @@
-import { ChangeEvent, useEffect, useState } from 'react';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { add } from './features/movieSlice';
 import { useDispatch } from 'react-redux';
 import { useLazySearchMovieQuery } from './services/apiSlice';
-import MovieList from './components/movieList';
-import { MovieType } from './components/movie';
-import rotateArrow from './assets/rotate-arrow-100.png';
+import MovieList from './components/MovieList';
+import { MovieType } from './components/Movie';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import './App.css';
 import Header from './layout/Header';
 import Footer from './layout/Footer';
+import EmptyState from './components/EmptyState';
+import Loading from './components/Loading';
+import styled from 'styled-components';
 
-const EmptyState = () => (
-  <div className="text-center text-info empty-state">
-    <img
-      width={150}
-      src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT1vzgBGWurwN5qXFRoWi92oND80HPCMroJOt1Esvb2J5ReTRpjTKVuKzb4yUv2CkBw5G4&usqp=CAU"
-      alt=""
-    />
-
-    <div style={{ fontSize: '20px', marginTop: '10px' }}>
-      No Movie, Search Your Movie Title
-    </div>
-  </div>
-);
-
-const Loading = () => (
-  <div className="loading-container">
-    <img src={rotateArrow} alt="loading" className="loading" /> <br />
-    Fetching Your Movie(s), <br /> Please Wait...
-  </div>
-);
+const Content = styled.div`
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - 80px);
+  margin-top: 80px;
+  padding-bottom: 50px;
+  padding-top: 10px;
+`;
 
 function App() {
   const [term, setTerm] = useState('');
@@ -61,7 +50,9 @@ function App() {
 
   useEffect(() => {
     if (term) {
-      fetchMovie({ s: term, p: page });
+      fetchMovie({ s: term, p: page }).then(() => {
+        window.scrollTo(0, 0);
+      });
     }
   }, [fetchMovie, term, page]);
 
@@ -73,36 +64,38 @@ function App() {
   };
 
   return (
-    <div>
+    <React.Fragment>
       <Header
         onSearchTitle={handleSearchByTitle}
         onSearchYear={handleSearchByYear}
       />
 
-      <div className="content">
-        <div className="movie-container">
-          {isFetching && <Loading />}
+      <Content>
+        {!isFetching && response && response.status === 'success' && (
+          <MovieList
+            movies={response && response.data ? response.data : []}
+            total={Number(response.totalResults)}
+            addToFav={handleAddToFav}
+            changePage={setPage}
+            page={page}
+          />
+        )}
 
-          {!isFetching && response && response.status === 'success' && (
-            <MovieList
-              movies={response && response.data ? response.data : []}
-              total={Number(response.totalResults)}
-              addToFav={handleAddToFav}
-              changePage={setPage}
-              page={page}
-            />
-          )}
+        {!isFetching && response && response.status === 'error' && (
+          <EmptyState />
+        )}
 
-          {!isFetching && response && response.status === 'error' && (
-            <EmptyState />
-          )}
+        {!isFetching && !response && <EmptyState />}
+      </Content>
 
-          {!isFetching && !response && <EmptyState />}
-        </div>
+      {isFetching && (
+        <Loading
+          loadingText={'Fetching Your Movie(s), <br /> Please Wait...'}
+        />
+      )}
 
-        <Footer />
-      </div>
-    </div>
+      <Footer />
+    </React.Fragment>
   );
 }
 
