@@ -6,8 +6,6 @@ interface ILoadingParam {
   loadingText: string;
 }
 
-const LoadingContainer = styled.div``;
-
 const rotate = keyframes`
   from {
     transform: rotate(0deg);

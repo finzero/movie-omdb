@@ -1,11 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import Movie, { MovieType } from './Movie';
+import MovieItem, { MovieType } from './MovieItem';
 import Pagination from './Pagination';
 
 interface MovieListProp {
   movies: MovieType[];
-  addToFav: (movie: MovieType) => void;
   total: number;
   changePage: (page: number) => void;
   page: number;
@@ -39,19 +38,13 @@ const MovieListContainer = styled.div`
   }
 `;
 
-const MovieList = ({
-  movies,
-  addToFav,
-  total,
-  changePage,
-  page,
-}: MovieListProp) => {
+const MovieList = ({ movies, total, changePage, page }: MovieListProp) => {
   return (
     <React.Fragment>
       <MovieListContainer>
         {movies.length ? (
           movies.map((movie: MovieType) => (
-            <Movie key={movie.imdbID} movie={movie} addToFav={addToFav} />
+            <MovieItem key={movie.imdbID} movie={movie} />
           ))
         ) : (
           <div>Movie List Empty, Search Your Movie</div>

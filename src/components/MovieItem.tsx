@@ -19,7 +19,6 @@ export interface MovieType {
 
 export interface MoviePropType {
   movie: MovieType;
-  addToFav: (movie: MovieType) => void;
 }
 
 const MovieLayout = styled.div`
@@ -72,7 +71,7 @@ const MovieInformation = styled.div`
   padding: 5px;
 `;
 
-export default function Movie({ movie }: MoviePropType) {
+export default function MovieItem({ movie }: MoviePropType) {
   return (
     <div className="card" key={movie.imdbID}>
       <div className="card-body">

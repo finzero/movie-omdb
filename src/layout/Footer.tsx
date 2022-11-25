@@ -19,13 +19,8 @@ const FooterContainer = styled.div`
 `;
 
 const marquee = keyframes`
-  0% {
-    -moz-transform: translateX(100%);
-  }
-
-  100% {
-    -moz-transform: translateX(-100%);
-  }
+  0% { transform: translateX(100%); }
+  100% { transform: translateX(-100%); }
 `;
 
 const FooterText = styled.div`

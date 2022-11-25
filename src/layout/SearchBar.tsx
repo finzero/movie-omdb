@@ -21,7 +21,7 @@ const MovieSearchBar = styled.div`
   z-index: 2;
 `;
 
-const Header = ({ onSearchTitle, onSearchYear }: HeaderProps) => {
+const SearchBar = ({ onSearchTitle, onSearchYear }: HeaderProps) => {
   return (
     <MovieSearchBar>
       <div className="row w-100">
@@ -36,4 +36,4 @@ const Header = ({ onSearchTitle, onSearchYear }: HeaderProps) => {
   );
 };
 
-export default React.memo(Header);
+export default React.memo(SearchBar);
